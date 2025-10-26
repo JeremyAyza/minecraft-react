@@ -1,13 +1,5 @@
-import grassImg from "@/assets/images/grass.png";
-import dirtImg from "@/assets/images/dirt.png";
-import glassImg from "@/assets/images/glass.png";
-import logImg from "@/assets/images/log.png";
-import woodImg from "@/assets/images/wood.png";
-
-
-export default {
-	grassImg,
-	dirtImg,
-	glassImg, logImg, woodImg
-}
-
+export { default as grassImg } from '@/assets/images/grass.png'
+export { default as glassImg } from '@/assets/images/glass.png'
+export { default as dirtImg } from '@/assets/images/dirt.png'
+export { default as logImg } from '@/assets/images/log.png'
+export { default as woodImg } from '@/assets/images/wood.png'

@@ -1,20 +1,37 @@
-import { NearestFilter, RepeatWrapping, TextureLoader } from "three";
-import images from "@/helpers/images";
 
 
-const { grassImg, dirtImg, logImg, woodImg, glassImg } = images;
+import {
+	grassImg,
+	dirtImg,
+	logImg,
+	glassImg,
+	woodImg
+} from '@/helpers/images'
 
-const generateTexture = (img: string) => {
-    const texture = new TextureLoader().load(img)
-    // texture.wrapS = RepeatWrapping
-    // texture.wrapT = RepeatWrapping
-    texture.magFilter = NearestFilter
-    return texture
+import { NearestFilter, RepeatWrapping, TextureLoader } from 'three'
+
+const grassTexture = new TextureLoader().load(grassImg)
+const dirtTexture = new TextureLoader().load(dirtImg)
+const logTexture = new TextureLoader().load(logImg)
+const glassTexture = new TextureLoader().load(glassImg)
+const woodTexture = new TextureLoader().load(woodImg)
+const groundTexture = new TextureLoader().load(grassImg)
+
+groundTexture.wrapS = RepeatWrapping
+groundTexture.wrapT = RepeatWrapping
+
+groundTexture.magFilter = NearestFilter
+grassTexture.magFilter = NearestFilter
+dirtTexture.magFilter = NearestFilter
+logTexture.magFilter = NearestFilter
+glassTexture.magFilter = NearestFilter
+woodTexture.magFilter = NearestFilter
+
+export {
+	groundTexture,
+	grassTexture,
+	dirtTexture,
+	logTexture,
+	glassTexture,
+	woodTexture
 }
-
-const [grassTexture, dirtTexture, logTexture, woodTexture, glassTexture] = [grassImg, dirtImg, logImg, woodImg, glassImg].map(generateTexture)
-
-grassTexture.wrapS = RepeatWrapping
-grassTexture.wrapT = RepeatWrapping
-
-export { grassTexture, dirtTexture, logTexture, woodTexture, glassTexture };
