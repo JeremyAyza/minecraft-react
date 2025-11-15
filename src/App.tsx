@@ -5,10 +5,9 @@ import { Ground } from "./components/Ground"
 import { FVP } from "./components/FVP"
 import { Player } from "./components/Player"
 import { Cubes } from "./components/Cubes"
-import { useStore } from "./hooks/useStore"
+import { TextureSelector } from "./components/textureSelected"
 
 function App() {
-	const texture = useStore((state) => state.texture)
 	
 	return (
 		<>
@@ -23,9 +22,8 @@ function App() {
 				</Physics>
 			</Canvas>
 			<div className="pointer">+</div>
-			<div className="texture-indicator">
-				Textura actual: <span className="texture-name">{texture}</span>
-			</div>
+			<TextureSelector/>
+			
 		</>
 	)
 }

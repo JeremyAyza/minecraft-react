@@ -1,25 +1,51 @@
 import { useBox } from "@react-three/cannon"
 import { useState } from "react"
 import * as textures from "@/lib/textures"
-import type { Mesh } from "three"
 import { useStore } from "@/hooks/useStore"
+import { useEffect } from "react"
+import { Mesh } from "three"
 
 export interface CubeProps {
 	pos: [number, number, number]
 	texture: string
-	removeCube(): void
+	id: string
 }
-export const Cube = ({ pos, texture, removeCube }: CubeProps) => {
+
+export const Cube = ({ pos, texture, id }: CubeProps) => {
 	const [isHovered, setIsHovered] = useState(false)
-	const addCube = useStore((state) => state.addCube)
+	const [isBroken, setIsBroken] = useState(false)
+	const { addCube, removeCube } = useStore.getState()
 
 	const [ref] = useBox<Mesh>(() => ({
 		type: "Static",
 		pos,
 	}))
-	const propName = `${texture}Texture` as keyof typeof textures
 
+	const propName = `${texture}Texture` as keyof typeof textures
 	const activeTexture = textures[propName]
+
+	useEffect(() => {
+		if (isBroken) {
+			// Simulación de desintegración (puedes usar efectos más avanzados aquí)
+			const timeout = setTimeout(() => {
+				removeCube(id) // Remover cubo después de unos segundos de animación
+			}, 500)
+
+			return () => clearTimeout(timeout)
+		}
+	}, [isBroken, removeCube, id])
+
+	const handleClick = (e: React.PointerEvent) => {
+		e.stopPropagation()
+
+		// Simula el "romper" el cubo al hacer clic normal
+		if (!e.altKey) {
+			setIsBroken(true)
+		} else {
+			// Si se hace clic con Alt, el cubo se elimina de la escena
+			removeCube(id)
+		}
+	}
 
 	return (
 		<mesh
@@ -32,27 +58,13 @@ export const Cube = ({ pos, texture, removeCube }: CubeProps) => {
 				e.stopPropagation()
 				setIsHovered(false)
 			}}
-			onClick={(e) => {
-				e.stopPropagation()
-
-				if (e.altKey) {
-					removeCube()
-				} else {
-					// Colocar cubo en la cara clickeada
-					const { x, y, z } = e.point
-					const newPos: [number, number, number] = [
-						Math.round(x),
-						Math.round(y),
-						Math.round(z)
-					]
-					addCube(newPos[0], newPos[1], newPos[2])
-				}
-			}}
+			onClick={handleClick}
 		>
-			<boxBufferGeometry attach="geometry" />
+			<boxGeometry attach="geometry" />
 			<meshStandardMaterial
-				color={isHovered ? "grey" : "white"}
+				color={isBroken ? "gray" : isHovered ? "lightgray" : "white"}
 				transparent
+				opacity={isBroken ? 0 : 1}
 				map={activeTexture}
 				attach="material"
 			/>
