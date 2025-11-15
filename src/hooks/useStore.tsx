@@ -1,9 +1,13 @@
-import { create } from "zustand"
 import { nanoid } from "nanoid"
+import { create } from "zustand"
 
-interface Store {
+interface State {
 	texture: string
-	cubes: { id: string; pos: [number, number, number]; texture: string }[]
+	cubes: {
+		id: string
+		pos: [number, number, number]
+		texture: string
+	}[]
 	addCube: (x: number, y: number, z: number) => void
 	removeCube: (id: string) => void
 	setTexture: (texture: string) => void
@@ -11,7 +15,7 @@ interface Store {
 	resetWorld: () => void
 }
 
-export const useStore = create<Store>((set) => ({
+export const useStore = create<State>((set) => ({
 	texture: "dirt",
 	cubes: [
 		{

@@ -1,5 +1,0 @@
-export { default as grassImg } from '@/assets/images/grass.png'
-export { default as glassImg } from '@/assets/images/glass.png'
-export { default as dirtImg } from '@/assets/images/dirt.png'
-export { default as logImg } from '@/assets/images/log.png'
-export { default as woodImg } from '@/assets/images/wood.png'

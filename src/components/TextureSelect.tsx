@@ -1,16 +1,16 @@
-import { useStore } from "../hooks/useStore.js"
-import * as images from "../helpers/images.js"
-import { useKeyboard } from "../hooks/useKeyboard.js"
+import { useStore } from "../hooks/useStore.tsx"
+import * as images from "../images/images.tsx"
+import { useKeyboard } from "../hooks/useKeyboard.tsx"
 import { useEffect, useState } from "react"
 
 export const TextureSelector = () => {
 	const [visible, setVisible] = useState(true)
-	const setTexture = useStore((state) => state.setTexture)
+
 	const texture = useStore((state) => state.texture)
+	const setTexture = useStore((state) => state.setTexture)
 
 	const { dirt, grass, glass, wood, log } = useKeyboard()
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const visibilityTimeout = setTimeout(() => {
 			setVisible(false)
@@ -23,7 +23,6 @@ export const TextureSelector = () => {
 		}
 	}, [texture])
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const options = {
 			dirt,
@@ -34,7 +33,7 @@ export const TextureSelector = () => {
 		}
 
 		const selectedTexture = Object.entries(options).find(
-			([_, isEnabled]) => isEnabled,
+			([texture, isEnabled]) => isEnabled,
 		)
 
 		if (selectedTexture) {
