@@ -3,13 +3,15 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { useEffect, useRef } from 'react'
 import { type Mesh, Vector3 } from 'three'
 import { useKeyboard } from '../hooks/useKeyboard.tsx'
+import { useStore } from '../hooks/useStore.tsx'
 
 const CHARACTER_SPEED = 4
 const CHARACTER_JUMP_FORCE = 4
 
 export const Player = () => {
-	const { moveBackward, moveForward, moveLeft, moveRight, jump } = useKeyboard()
+	const paused = useStore((s) => s.paused)
 
+	const { moveBackward, moveForward, moveLeft, moveRight, jump } = useKeyboard()
 	const { camera } = useThree()
 	const [ref, api] = useSphere<Mesh>(() => ({
 		mass: 1,
@@ -32,12 +34,10 @@ export const Player = () => {
 	}, [api.velocity])
 
 	useFrame(() => {
+		if (paused) return // ❌ Detener la lógica sin desmontar hooks
+
 		camera.position.copy(
-			new Vector3(
-				pos.current[0], // x
-				pos.current[1], // y
-				pos.current[2] // z
-			)
+			new Vector3(pos.current[0], pos.current[1], pos.current[2])
 		)
 
 		const direction = new Vector3()
@@ -47,7 +47,6 @@ export const Player = () => {
 			0,
 			(moveBackward ? 1 : 0) - (moveForward ? 1 : 0)
 		)
-
 		const sideVector = new Vector3(
 			(moveLeft ? 1 : 0) - (moveRight ? 1 : 0),
 			0,
@@ -57,14 +56,10 @@ export const Player = () => {
 		direction
 			.subVectors(frontVector, sideVector)
 			.normalize()
-			.multiplyScalar(CHARACTER_SPEED) // walk: 2, run: 5
+			.multiplyScalar(CHARACTER_SPEED)
 			.applyEuler(camera.rotation)
 
-		api.velocity.set(
-			direction.x,
-			vel.current[1], // ???? saltar.
-			direction.z
-		)
+		api.velocity.set(direction.x, vel.current[1], direction.z)
 
 		if (jump && Math.abs(vel.current[1]) < 0.05) {
 			api.velocity.set(vel.current[0], CHARACTER_JUMP_FORCE, vel.current[2])
