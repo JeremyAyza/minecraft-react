@@ -1,13 +1,10 @@
+import type { Cube } from "@/types"
 import { nanoid } from "nanoid"
 import { create } from "zustand"
 
 interface State {
 	texture: string
-	cubes: {
-		id: string
-		pos: [number, number, number]
-		texture: string
-	}[]
+	cubes: Cube[]
 	addCube: (x: number, y: number, z: number) => void
 	removeCube: (id: string) => void
 	setTexture: (texture: string) => void

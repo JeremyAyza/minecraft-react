@@ -4,7 +4,7 @@ import { useKeyboard } from "../hooks/useKeyboard.tsx"
 import { useEffect, useState } from "react"
 
 export const TextureSelector = () => {
-	const [visible, setVisible] = useState(true)
+	const [_, setVisible] = useState(true)
 
 	const texture = useStore((state) => state.texture)
 	const setTexture = useStore((state) => state.setTexture)
@@ -33,7 +33,7 @@ export const TextureSelector = () => {
 		}
 
 		const selectedTexture = Object.entries(options).find(
-			([texture, isEnabled]) => isEnabled,
+			([_, isEnabled]) => isEnabled,
 		)
 
 		if (selectedTexture) {

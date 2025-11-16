@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-const ACTIONS_KEYBOARD_MAP = {
+const ACTIONS_KEYBOARD_MAP: Record<string, string> = {
 	KeyW: "moveForward",
 	KeyS: "moveBackward",
 	KeyA: "moveLeft",

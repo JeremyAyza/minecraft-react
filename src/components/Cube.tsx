@@ -1,19 +1,21 @@
-import { useStore } from "../hooks/useStore.tsx"
-import { useBox } from "@react-three/cannon"
-import { useState } from "react"
-import * as textures from "../images/textures.tsx"
+import { useStore } from '../hooks/useStore.tsx'
+import { useBox } from '@react-three/cannon'
+import { useState } from 'react'
+import * as textures from '../images/textures.tsx'
+import type { Cube as CubeInterface } from '@/types.ts'
+import type { Mesh } from 'three'
 
-export const Cube = ({ id, position, texture }) => {
+export const Cube = ({ id, pos: position, texture }: CubeInterface) => {
 	const [isHovered, setIsHovered] = useState(false)
 
 	const removeCube = useStore((state) => state.removeCube)
 
-	const [ref] = useBox(() => ({
-		type: "Static",
-		position,
+	const [ref] = useBox<Mesh>(() => ({
+		type: 'Static',
+		position
 	}))
-
-	const activeTexture = textures[texture + "Texture"]
+	const key = `${texture}Texture` as keyof typeof textures
+	const activeTexture = textures[key]
 
 	return (
 		<mesh
@@ -34,9 +36,9 @@ export const Cube = ({ id, position, texture }) => {
 				}
 			}}
 		>
-			<boxBufferGeometry attach="geometry" />
+			<boxGeometry attach="geometry" />
 			<meshStandardMaterial
-				color={isHovered ? "grey" : "white"}
+				color={isHovered ? 'grey' : 'white'}
 				transparent
 				map={activeTexture}
 				attach="material"
