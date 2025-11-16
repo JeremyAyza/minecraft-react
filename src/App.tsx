@@ -14,7 +14,6 @@ import { usePauseKey } from './hooks/usePauseKey'
 function App() {
 	const paused = useStore((s) => s.paused)
 
-	// ❌ Siempre llama hooks en el mismo orden
 	useGameKeyBlocker(paused)
 	usePauseKey()
 

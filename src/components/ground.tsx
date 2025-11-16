@@ -21,6 +21,7 @@ export function Ground() {
 		addCube(x, y, z)
 	}
 
+	
 	return (
 		<mesh onClick={handleClickGround} ref={ref}>
 			<planeBufferGeometry attach="geometry" args={[100, 100]} />
