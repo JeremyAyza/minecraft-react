@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 
 const ACTIONS_KEYBOARD_MAP: Record<string, string> = {
-	KeyW: "moveForward",
-	KeyS: "moveBackward",
-	KeyA: "moveLeft",
-	KeyD: "moveRight",
-	Space: "jump",
-	Digit1: "dirt",
-	Digit2: "grass",
-	Digit3: "glass",
-	Digit4: "wood",
-	Digit5: "log",
+	KeyW: 'moveForward',
+	KeyS: 'moveBackward',
+	KeyA: 'moveLeft',
+	KeyD: 'moveRight',
+	Space: 'jump',
+	Digit1: 'wood',
+	Digit2: 'log',
+	Digit3: 'dirt',
+	Digit4: 'glass',
+	Digit5: 'grass'
 }
 
 export const useKeyboard = () => {
@@ -24,7 +24,7 @@ export const useKeyboard = () => {
 		grass: false,
 		glass: false,
 		wood: false,
-		log: false,
+		log: false
 	})
 
 	useEffect(() => {
@@ -37,7 +37,7 @@ export const useKeyboard = () => {
 
 				setActions((prevActions) => ({
 					...prevActions,
-					[action]: true,
+					[action]: true
 				}))
 			}
 		}
@@ -51,17 +51,17 @@ export const useKeyboard = () => {
 
 				setActions((prevActions) => ({
 					...prevActions,
-					[action]: false,
+					[action]: false
 				}))
 			}
 		}
 
-		document.addEventListener("keydown", handleKeyDown)
-		document.addEventListener("keyup", handleKeyUp)
+		document.addEventListener('keydown', handleKeyDown)
+		document.addEventListener('keyup', handleKeyUp)
 
 		return () => {
-			document.removeEventListener("keydown", handleKeyDown)
-			document.removeEventListener("keyup", handleKeyUp)
+			document.removeEventListener('keydown', handleKeyDown)
+			document.removeEventListener('keyup', handleKeyUp)
 		}
 	}, [])
 

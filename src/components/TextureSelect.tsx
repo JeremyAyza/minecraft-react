@@ -1,7 +1,7 @@
-import { useStore } from "../hooks/useStore.tsx"
-import * as images from "../images/images.tsx"
-import { useKeyboard } from "../hooks/useKeyboard.tsx"
-import { useEffect, useState } from "react"
+import { useStore } from '../hooks/useStore.tsx'
+import * as images from '../images/images.tsx'
+import { useKeyboard } from '../hooks/useKeyboard.tsx'
+import { useEffect, useState } from 'react'
 
 export const TextureSelector = () => {
 	const [_, setVisible] = useState(true)
@@ -29,11 +29,11 @@ export const TextureSelector = () => {
 			grass,
 			glass,
 			wood,
-			log,
+			log
 		}
 
 		const selectedTexture = Object.entries(options).find(
-			([_, isEnabled]) => isEnabled,
+			([_, isEnabled]) => isEnabled
 		)
 
 		if (selectedTexture) {
@@ -42,12 +42,20 @@ export const TextureSelector = () => {
 		}
 	}, [dirt, grass, glass, wood, log])
 
+	const imgKeys = [
+		['wood', images.woodImg],
+		['log', images.logImg],
+		['dirt', images.dirtImg],
+		['glass', images.glassImg],
+		['grass', images.grassImg]
+	]
+
 	return (
 		<div className="texture-selector">
-			{Object.entries(images).map(([imgKey, img]) => {
+			{imgKeys.map(([imgKey, img]) => {
 				return (
 					<img
-						className={texture === imgKey.replace("Img", "") ? "selected" : ""}
+						className={texture === imgKey.replace('Img', '') ? 'selected' : ''}
 						key={imgKey}
 						src={img}
 						alt={imgKey}

@@ -3,14 +3,11 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { useEffect, useRef } from 'react'
 import { type Mesh, Vector3 } from 'three'
 import { useKeyboard } from '../hooks/useKeyboard.tsx'
-import { useStore } from '../hooks/useStore.tsx'
 
 const CHARACTER_SPEED = 4
 const CHARACTER_JUMP_FORCE = 4
 
 export const Player = () => {
-	const paused = useStore((s) => s.paused)
-
 	const { moveBackward, moveForward, moveLeft, moveRight, jump } = useKeyboard()
 	const { camera } = useThree()
 	const [ref, api] = useSphere<Mesh>(() => ({
@@ -34,8 +31,6 @@ export const Player = () => {
 	}, [api.velocity])
 
 	useFrame(() => {
-		if (paused) return // ❌ Detener la lógica sin desmontar hooks
-
 		camera.position.copy(
 			new Vector3(pos.current[0], pos.current[1], pos.current[2])
 		)
@@ -66,6 +61,5 @@ export const Player = () => {
 		}
 	})
 
-	
 	return <mesh ref={ref} />
 }
