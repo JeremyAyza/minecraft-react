@@ -20,10 +20,10 @@ export const ControlsHint = () => {
 				<span style={styles.action}>Saltar</span>
 			</div>
 
-			<div style={styles.row}>
+			{/* <div style={styles.row}>
 				<Key>Shift</Key>
 				<span style={styles.action}>Correr</span>
-			</div>
+			</div> */}
 
 			<div style={styles.row}>
 				<Key>Click Izq.</Key>
