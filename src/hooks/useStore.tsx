@@ -9,11 +9,7 @@ interface State {
 	addCube: (x: number, y: number, z: number) => void
 	removeCube: (id: string) => void
 	setTexture: (texture: string) => void
-	saveWorld: () => void
-	resetWorld: () => void
 }
-// const cubes = [...generateHouse(), ...generateTrees()]
-// console.log(cubes)
 export const useStore = create<State>((set) => ({
 	texture: 'wood',
 	cubes: defaultCubes as Cube[],
@@ -36,7 +32,5 @@ export const useStore = create<State>((set) => ({
 	},
 	setTexture: (texture) => {
 		set(() => ({ texture }))
-	},
-	saveWorld: () => {},
-	resetWorld: () => {}
+	}
 }))

@@ -17,7 +17,6 @@ export function Ground() {
 	const handleClickGround = (event: ThreeEvent<MouseEvent>) => {
 		event.stopPropagation()
 		const [x, y, z] = Object.values(event.point).map((n) => Math.ceil(n))
-		console.log(x, y, z)
 		addCube(x, y, z)
 	}
 
